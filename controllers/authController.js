@@ -147,3 +147,63 @@ exports.postResendToken = async (req, res, next) => {
     return res.redirect("/");
   }
 };
+
+exports.getForgotPassword = (req, res, next) => {
+  res.render("auth/forgotPassword");
+};
+
+exports.postForgotPassword = async (req, res, next) => {
+  const user = await User.findOne({ email: req.body.email });
+  if (!user) {
+    req.flash("error", "Invalid email address");
+    return res.redirect("back");
+  }
+  const newToken = new Token({
+    _userId: user._id,
+    token: crypto.randomBytes(6).toString("hex"),
+  });
+  await newToken.save();
+  const url = `${req.protocol}://${req.headers.host}/auth/newpw-token?token=${newToken.token}`;
+  await new Email(user, url).sendPasswordReset();
+  req.flash("success", "Please check your email to change your password.");
+  return res.redirect("/");
+};
+
+exports.getTokenNewPassword = async (req, res, next) => {
+  const token = await Token.findOne({ token: req.query.token });
+  if (!token) {
+    req.flash(
+      "error",
+      "This token has expired, please send a new password reset request"
+    );
+    return res.redirect("/auth/forgot-password");
+  }
+  const user = await User.findById(token._userId);
+  const username = user.username;
+  return res.render("auth/changePassword", { username });
+};
+
+exports.postChangePassword = async (req, res, next) => {
+  const user = await User.findOne({ username: req.body.username });
+  if (!user) {
+    req.flash("error", "This account is not valid");
+    return res.redirect("/");
+  }
+
+  await user.setPassword(req.body.password, async (err) => {
+    if (err) {
+      req.flash("error", err.message);
+      return res.redirect("/");
+    }
+    user.attempts = 0;
+    user.expiresDateCheck = undefined;
+    await user.save();
+    const url = `${req.protocol}://${req.headers.host}/auth/login`;
+    await new Email(user, url).sendPasswordChange();
+    req.flash(
+      "success",
+      "Your password has been successfully updated. Please login using your new password"
+    );
+    res.redirect("/auth/login");
+  });
+};

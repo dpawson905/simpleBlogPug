@@ -22,15 +22,16 @@ block content
               label(for="lastName") Last Name
               input.form-control(type="text" name="lastName" id="lastName" placeholder="Last Name")
             .mb-2
-              label(for="password") Last Name
+              label(for="password") Password
               input.form-control(type="password" name="password" id="password" placeholder="Password")
             .mb-2
-              label(for="password2") Last Name
+              label(for="password2") Conform Password
               input.form-control(type="password" name="password2" id="password2" placeholder="Confirm Password")
               div
                 small#checkPw
             .mb-2
               input(type="hidden", name="_csrf" value=`${csrfToken}`)
+              a.float-left.btn.btn-outline-secondary(href="/auth/login") Already have an account? Login
               button.btn.btn-primary.float-right(type="submit") Register
               
   include ../partials/_footer

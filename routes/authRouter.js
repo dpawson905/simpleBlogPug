@@ -20,7 +20,21 @@ router
   .get(authController.getResendToken)
   .post(asyncErrorHandler(authController.postResendToken));
 
+router
+  .route("/forgot-password")
+  .get(authController.getForgotPassword)
+  .post(asyncErrorHandler(authController.postForgotPassword));
+
+router.post(
+  "/change-password",
+  asyncErrorHandler(authController.postChangePassword)
+);
+
 router.get("/token", asyncErrorHandler(authController.verifyFromEmail));
+router.get(
+  "/newpw-token",
+  asyncErrorHandler(authController.getTokenNewPassword)
+);
 router.get("/logout", authController.logOut);
 
 module.exports = router;

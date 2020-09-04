@@ -1,0 +1,26 @@
+extends layout
+
+block content
+  .container-fluid
+    .row
+      .col-12.flex-column.text-white
+        h1= title
+        p.text-center Welcome to #{title}
+        a.btn.btn-outline-primary.shadow.mx-auto(href="#blogs") View Blogs
+  .container.my-5#blogs
+    .row
+      .col-12
+        if blogs.length
+          h1.text-center My Blogs
+          each blog in blogs
+            h1 Blog
+            
+        else
+          if isAuthenticated
+            h1.text-center There are no blogs... Why not 
+              span 
+                a.btn.btn-lg.btn-outline-success(href="#") create one
+          else
+            h1.text-center No blogs have been created yet
+
+  include partials/_footer

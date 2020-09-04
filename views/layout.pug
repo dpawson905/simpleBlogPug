@@ -1,0 +1,19 @@
+doctype html
+html(lang="en")
+  head
+    meta(http-equiv="Content-Type", content="text/html;charset=UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+    title= title
+    link(rel="stylesheet", href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous")
+    link(rel='stylesheet', href='/stylesheets/simplemde.min.css')
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/stylesheets/animate.css')
+    script(src="https://code.jquery.com/jquery-3.5.1.min.js")
+    script(src="https://kit.fontawesome.com/702c8c1b1f.js" crossorigin="anonymous")
+    
+  body
+    include partials/_navbar
+    
+    block content
+      include partials/_footer
+    

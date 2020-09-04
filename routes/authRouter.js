@@ -25,15 +25,14 @@ router
   .get(authController.getForgotPassword)
   .post(asyncErrorHandler(authController.postForgotPassword));
 
-router.post(
-  "/change-password",
-  asyncErrorHandler(authController.postChangePassword)
-);
-
 router.get("/token", asyncErrorHandler(authController.verifyFromEmail));
 router.get(
   "/newpw-token",
   asyncErrorHandler(authController.getTokenNewPassword)
+);
+router.patch(
+  "/change-password",
+  asyncErrorHandler(authController.patchChangePassword)
 );
 router.get("/logout", authController.logOut);
 

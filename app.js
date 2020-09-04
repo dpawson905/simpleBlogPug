@@ -84,6 +84,7 @@ app.use(
 if (process.env.NODE_ENV.trim() === "development") {
   app.use(logger("common"));
 }
+app.use(methodOverride("_method"));
 app.use(express.json({ limit: "10kb" }));
 app.use(express.urlencoded({ extended: true, limit: "10kb" }));
 app.use(cookieParser());
@@ -143,14 +144,9 @@ app.use(async (req, res, next) => {
   next();
 });
 
-app.use("/", indexRouter);
 app.use("/auth", authRouter);
 app.use("/users", usersRouter);
-
-// catch 404 and forward to error handler
-app.all("*", (req, res, next) => {
-  return res.render("404");
-});
+app.use("/", indexRouter);
 
 // error handler
 app.use(function (err, req, res, next) {

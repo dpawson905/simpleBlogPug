@@ -183,7 +183,7 @@ exports.getTokenNewPassword = async (req, res, next) => {
   return res.render("auth/changePassword", { username });
 };
 
-exports.postChangePassword = async (req, res, next) => {
+exports.patchChangePassword = async (req, res, next) => {
   const user = await User.findOne({ username: req.body.username });
   if (!user) {
     req.flash("error", "This account is not valid");
@@ -197,13 +197,28 @@ exports.postChangePassword = async (req, res, next) => {
     }
     user.attempts = 0;
     user.expiresDateCheck = undefined;
-    await user.save();
     const url = `${req.protocol}://${req.headers.host}/auth/login`;
     await new Email(user, url).sendPasswordChange();
+    await user.save();
     req.flash(
       "success",
       "Your password has been successfully updated. Please login using your new password"
     );
     res.redirect("/auth/login");
+  });
+};
+
+exports.updatePassword = async (req, res, next) => {
+  const user = await User.findById(req.user.id);
+  await user.setPassword(req.body.password, async (err) => {
+    if (err) {
+      req.flash("error", err.message);
+      return res.redirect("back");
+    }
+    user.attempts = 0;
+    user.expiresDateCheck = null;
+    await user.save();
+    req.flash("success", "Password has been changed.");
+    res.redirect("back");
   });
 };

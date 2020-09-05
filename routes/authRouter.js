@@ -3,37 +3,48 @@ const router = express.Router();
 
 const authController = require("../controllers/authController");
 
-const { asyncErrorHandler } = require("../middleware/index");
+const {
+  asyncErrorHandler,
+  isNotAuthenticated,
+  isAuthenticated,
+  isVerified,
+} = require("../middleware/index");
 
 router
   .route("/register")
-  .get(authController.getRegister)
-  .post(asyncErrorHandler(authController.postRegister));
+  .get(isAuthenticated, authController.getRegister)
+  .post(isAuthenticated, asyncErrorHandler(authController.postRegister));
 
 router
   .route("/login")
-  .get(authController.getLogin)
-  .post(asyncErrorHandler(authController.postLogin));
+  .get(isAuthenticated, authController.getLogin)
+  .post(isAuthenticated, asyncErrorHandler(authController.postLogin));
 
 router
   .route("/resend-token")
-  .get(authController.getResendToken)
-  .post(asyncErrorHandler(authController.postResendToken));
+  .get(isAuthenticated, authController.getResendToken)
+  .post(isAuthenticated, asyncErrorHandler(authController.postResendToken));
 
 router
   .route("/forgot-password")
-  .get(authController.getForgotPassword)
-  .post(asyncErrorHandler(authController.postForgotPassword));
+  .get(isAuthenticated, authController.getForgotPassword)
+  .post(isAuthenticated, asyncErrorHandler(authController.postForgotPassword));
 
-router.get("/token", asyncErrorHandler(authController.verifyFromEmail));
+router.get(
+  "/token",
+  isAuthenticated,
+  asyncErrorHandler(authController.verifyFromEmail)
+);
 router.get(
   "/newpw-token",
+  isAuthenticated,
   asyncErrorHandler(authController.getTokenNewPassword)
 );
 router.patch(
   "/change-password",
+  isAuthenticated,
   asyncErrorHandler(authController.patchChangePassword)
 );
-router.get("/logout", authController.logOut);
+router.get("/logout", isNotAuthenticated, authController.logOut);
 
 module.exports = router;

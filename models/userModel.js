@@ -80,7 +80,7 @@ const UserSchema = new Schema(
   { timestamps: true }
 );
 
-UserSchema.pre("find", function (next) {
+UserSchema.pre(/^find/, function (next) {
   this.populate("blogs");
   next();
 });

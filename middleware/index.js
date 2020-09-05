@@ -16,9 +16,9 @@ const middleware = {
     if (req.isAuthenticated()) {
       return next();
     } else {
-      req.flash("error", "You must be logged in to view this page");
+      req.flash("error", "You are not authenticated");
       req.session.redirectTo = req.originalUrl;
-      res.redirect("/users/login");
+      res.redirect("/auth/login");
     }
   },
   isAdmin: (req, res, next) => {
@@ -26,7 +26,7 @@ const middleware = {
       return next();
     }
     req.flash("error", "You don't have the privileges to do that.");
-    res.redirect("/users/login");
+    res.redirect("/auth/login");
   },
   deleteProfileImage: async (req) => {
     if (req.file) await cloudinary.v2.uploader.destroy(req.file.public_id);

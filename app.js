@@ -145,9 +145,13 @@ app.use(async (req, res, next) => {
   next();
 });
 
+app.use("/", indexRouter);
 app.use("/auth", authRouter);
 app.use("/users", usersRouter);
-app.use("/", indexRouter);
+
+app.all("*", (req, res, next) => {
+  return res.render("404");
+});
 
 // error handler
 app.use(function (err, req, res, next) {

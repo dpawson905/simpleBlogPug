@@ -5,6 +5,7 @@ const User = require("../models/userModel");
 
 exports.getProfile = async (req, res, next) => {
   const user = await User.findOne({ username: req.params.username });
+  if (!user) return res.status(404).render("404");
   res.render("profile/index", { url: "profile", user });
 };
 

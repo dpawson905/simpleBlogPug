@@ -13,9 +13,9 @@ block content
     .row
       .col-12
         h1.text-center Your Profile
-      .col-lg-4
+      .col-xl-4
         img.img-fluid.rounded.shadow(src=`${user.image.secure_url}`)
-      .col-lg-8
+      .col-xl-8
         table.table.table-striped
           thead
             tr
@@ -28,13 +28,13 @@ block content
             tr
               if user.roles.admin || user.roles.dev_admin
                 th(scope="row")
-                  i.fal.fa-users.crown &nbsp; Admin
+                  i.far.fa-users-crown
               else if user.roles.manager
                 th(scope="row")
-                  i.fal.fa-users.cog &nbsp; Manager
+                  i.fal.fa-users-cog &nbsp;
               else
                 th(scope="row")
-                  i.fal.fa-user &nbsp; User
+                  i.fal.fa-user &nbsp; 
               td= `${user.firstName.charAt(0).toUpperCase()+user.firstName.slice(1)}`
               td= `${user.lastName.charAt(0).toUpperCase()+user.lastName.slice(1)}`
               td= user.username

@@ -9,8 +9,6 @@ const userController = require("../controllers/userController");
 const {
   asyncErrorHandler,
   isNotAuthenticated,
-  isAuthenticated,
-  isVerified,
 } = require("../middleware/index");
 
 /* GET users listing. */

@@ -72,7 +72,7 @@ app.use(
         "'self'",
         "blob:",
         "data:",
-        "https://res.cloudinary.com/devsprout/",
+        "https://res.cloudinary.com/campcloud/",
         "https://images.unsplash.com/",
         "https://cdn.dribbble.com/",
       ],
@@ -153,7 +153,7 @@ app.use("/", indexRouter);
 app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
-  debug(err);
+  console.log(err);
   res.locals.error = req.app.get("env") === "development" ? err : {};
 
   // render the error page

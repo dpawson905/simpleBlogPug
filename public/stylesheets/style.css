@@ -55,4 +55,11 @@ body {
   background-size: cover;
   background-position: center; }
 
+.btn-flex {
+  padding-top: 8rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center; }
+
 /*# sourceMappingURL=style.css.map */

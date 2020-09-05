@@ -1,0 +1,22 @@
+// Modal
+#pwModal.modal.fade(tabindex='-1' aria-labelledby='pwModalLabel' aria-hidden='true')
+  .modal-dialog
+    .modal-content
+      .modal-header
+        h5#pwModalLabel.modal-title Upload an image
+        button.close(type='button' data-dismiss='modal' aria-label='Close')
+          span(aria-hidden='true') &times;
+      form(action=`/users/${user.username}?_csrf=${csrfToken}`, method="post" enctype="multipart/form-data")
+        .modal-body
+          .form-group
+            label(for="password") Password
+            input.form-control(type="password" name="password" id="password" placeholder="Password")
+            input(type="hidden", name="_csrf" value=`${csrfToken}`)
+          .form-group
+            label(for="password2") Conform Password
+            input.form-control(type="password" name="password2" id="password2" placeholder="Confirm Password")
+            div
+              small#checkPw
+        .modal-footer
+          button.btn.btn-secondary(type='button' data-dismiss='modal') Cancel
+          button.btn.btn-primary(type='submit') Save changes

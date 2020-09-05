@@ -1,0 +1,45 @@
+extends ../layout
+
+block content
+  .container
+    .row
+      .col-12.btn-flex
+        button.btn.btn-outline-primary(type="button" data-toggle="modal" data-target="#imageModal") Update Image
+        button.btn.btn-outline-secondary(type="button" data-toggle="modal" data-target="#pwModal") Change Password
+        button.btn.btn-outline-success(type="button" data-toggle="modal" data-target="#emailModal") Change Email
+        button.btn.btn-outline-warning(type="button" data-toggle="modal" data-target="#usernameModal") Change Username
+        button.btn.btn-outline-danger(type="button" data-toggle="modal" data-target="#deleteModal") Delete Account
+    hr
+    .row
+      .col-12
+        h1.text-center Your Profile
+      .col-lg-4
+        img.img-fluid.rounded.shadow(src=`${user.image.secure_url}`)
+      .col-lg-8
+        table.table.table-striped
+          thead
+            tr
+              th(scope="col") Role
+              th(scope="col") First Name
+              th(scope="col") Last Name
+              th(scope="col") Username
+              th(scope="col") Email
+          tbody
+            tr
+              if user.roles.admin || user.roles.dev_admin
+                th(scope="row")
+                  i.fal.fa-users.crown &nbsp; Admin
+              else if user.roles.manager
+                th(scope="row")
+                  i.fal.fa-users.cog &nbsp; Manager
+              else
+                th(scope="row")
+                  i.fal.fa-user &nbsp; User
+              td= `${user.firstName.charAt(0).toUpperCase()+user.firstName.slice(1)}`
+              td= `${user.lastName.charAt(0).toUpperCase()+user.lastName.slice(1)}`
+              td= user.username
+              td= user.email
+
+  include ../modals/imageModal        
+  include ../modals/pwModal        
+  include ../partials/_footer

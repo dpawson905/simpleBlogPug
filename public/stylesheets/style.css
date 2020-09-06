@@ -1,5 +1,7 @@
 body {
-  overflow-x: hidden !important; }
+  overflow-x: hidden !important;
+  padding-top: 6em;
+  padding-bottom: 6em; }
 
 .login-img {
   max-height: 100vh;
@@ -61,5 +63,10 @@ body {
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center; }
+
+hr.type_10 {
+  border: 0;
+  height: 1.5px;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0)); }
 
 /*# sourceMappingURL=style.css.map */

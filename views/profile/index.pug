@@ -3,42 +3,41 @@ extends ../layout
 block content
   .container
     .row
-      .col-12.btn-flex
-        button.btn.btn-outline-primary(type="button" data-toggle="modal" data-target="#imageModal") Update Image
-        button.btn.btn-outline-secondary(type="button" data-toggle="modal" data-target="#pwModal") Change Password
-        button.btn.btn-outline-success(type="button" data-toggle="modal" data-target="#emailModal") Change Email
-        button.btn.btn-outline-warning(type="button" data-toggle="modal" data-target="#usernameModal") Change Username
-        button.btn.btn-outline-danger(type="button" data-toggle="modal" data-target="#deleteModal") Delete Account
-    hr
-    .row
       .col-12
         h1.text-center Your Profile
+        hr.type_10
       .col-xl-4
-        img.img-fluid.rounded.shadow(src=`${user.image.secure_url}`)
-      .col-xl-8
-        table.table.table-striped
-          thead
-            tr
-              th(scope="col") Role
-              th(scope="col") First Name
-              th(scope="col") Last Name
-              th(scope="col") Username
-              th(scope="col") Email
-          tbody
-            tr
+        .card.shadow
+          img.img-fluid.card-img-top(src=`${user.image.secure_url}`)
+          ul.list-group.list-group-flush
+            li.list-group-item Role: &nbsp;
               if user.roles.admin || user.roles.dev_admin
-                th(scope="row")
-                  i.far.fa-users-crown
+                i.far.fa-users-crown &nbsp; Admin
               else if user.roles.manager
-                th(scope="row")
-                  i.fal.fa-users-cog &nbsp;
+                i.far.fa-users-cog &nbsp; Manager
               else
-                th(scope="row")
-                  i.fal.fa-user &nbsp; 
-              td= `${user.firstName.charAt(0).toUpperCase()+user.firstName.slice(1)}`
-              td= `${user.lastName.charAt(0).toUpperCase()+user.lastName.slice(1)}`
-              td= user.username
-              td= user.email
+                i.fal.fa-user &nbsp; User
+            li.list-group-item Name: #{user.firstName.charAt(0).toUpperCase()+user.firstName.slice(1) + ' ' + user.lastName.charAt(0).toUpperCase()+user.lastName.slice(1)}
+            li.list-group-item Username: #{user.username}
+            li.list-group-item Email: #{user.email}
+            li.list-group-item.p-0
+              button.btn.btn-outline-primary.btn-block(type="button" data-toggle="modal" data-target="#imageModal") Update Image
+            li.list-group-item.p-0
+              button.btn.btn-outline-secondary.btn-block(type="button" data-toggle="modal" data-target="#pwModal") Change Password
+            li.list-group-item.p-0
+              button.btn.btn-outline-success.btn-block(type="button" data-toggle="modal" data-target="#emailModal") Change Email
+            li.list-group-item.p-0
+              button.btn.btn-outline-warning.btn-block(type="button" data-toggle="modal" data-target="#usernameModal") Change Username
+            li.list-group-item.p-0
+              button.btn.btn-outline-danger.btn-block(type="button" data-toggle="modal" data-target="#deleteModal") Delete Account
+              
+      .col-xl-8
+        if !user.blogs.length
+          h1.text-center No Blogs Yet
+        else
+          each blog in user.blogs
+            h1.text-center Blog
+
 
   include ../modals/imageModal        
   include ../modals/pwModal        

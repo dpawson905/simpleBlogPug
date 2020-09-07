@@ -43,7 +43,8 @@ const scriptSrcUrls = [
   "https://kit-pro.fontawesome.com/",
   "https://code.jquery.com/",
   "https://cdnjs.cloudflare.com",
-  "https://cdn.jsdelivr.net",
+  "https://cdn.jsdelivr.net/",
+  "https://unpkg.com/",
 ];
 const styleSrcUrls = [
   "https://*.bootstrapcdn.com",
@@ -52,6 +53,9 @@ const styleSrcUrls = [
   "https://fonts.googleapis.com/",
   "https://kit.fontawesome.com/",
   "https://kit-pro.fontawesome.com/",
+  "https://cdn.jsdelivr.net/",
+  "https://unpkg.com/",
+  "https://code.jquery.com",
 ];
 const connectSrcUrls = ["https://*.stripe.com/", "https://js.stripe.com/"];
 const frameSrcUrls = ["https://*.stripe.com", "https://js.stripe.com/"];
@@ -60,6 +64,7 @@ const fontSrcUrls = [
   "https://*.fontawesome.com/",
   "https://*.cloudflare.com",
   "https://*.dribbble.com",
+  "https://unpkg.com/",
 ];
 app.use(
   helmet.contentSecurityPolicy({
@@ -77,6 +82,7 @@ app.use(
         "https://res.cloudinary.com/campcloud/",
         "https://images.unsplash.com/",
         "https://cdn.dribbble.com/",
+        "https://code.jquery.com",
       ],
       fontSrc: ["'self'", ...fontSrcUrls],
     },

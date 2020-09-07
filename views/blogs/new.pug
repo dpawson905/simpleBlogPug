@@ -1,0 +1,49 @@
+extends ../layout
+
+block content
+  header.masthead 
+    .masthead-text
+      h1 Your Blogs
+  main
+    .container.my-5
+      .row
+        h1.text-center.w-100 My Blogs
+        form.w-100(action=`/blogs/create?_csrf=${csrfToken}`, method="post", enctype="multipart/form-data")
+          .col-12
+            .mb-2
+              label(for="title") Title
+              input.form-control(type="text", name="title" placeholder="Blog Title")
+            .mb-2
+              label(for="markdownArea") Body
+              textarea.form-control(name="content", id="markdownArea", rows="15")
+            .row
+              .col-xl-4
+                .mb-2
+                  label(for="tags") Tags
+                  input.form-control(type="text" class="form-control bootstrap-tagsinput" id="tags" name="tags" aria-describedby="tags" data-role="tagsinput" required)
+              .col-xl-4
+                .mb-2
+                  label(for="publishDate") Publish Date
+                  input.form-control(type="text" class="form-control" id="publishDate" name="publishDate")
+              .col-xl-4
+                .mb-2.mx-auto.my-auto
+                  label(for="image")
+                  input.form-control-file(type="file", name="image" id="image")
+            .row
+              .col-xl-4
+                .mb-2.form-check.form-check-inline
+                  input.form-check-input(type="checkbox", name="featured" id="featured")
+                  label.form-check-label(for="featured") Feature Post?
+              .col-xl-4
+                .mb-2.form-check.form-check-inline
+                  input.form-check-input(type="checkbox", name="private" id="private")
+                  label.form-check-label(for="private") Private Post?
+              .col-xl-4
+                .mb-2.float-right
+                  input(type="hidden", name="_csrf" value=`${csrfToken}`)
+                  button.btn.btn-primary(type="submit") Create Post
+
+  script.
+    $('#publishDate').datepicker();
+
+  include ../partials/_footer

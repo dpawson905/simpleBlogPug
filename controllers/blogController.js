@@ -39,3 +39,7 @@ exports.getBlog = async (req, res, next) => {
     url: "blog",
   });
 };
+
+exports.getNewBlog = (req, res, next) => {
+  res.render("blogs/new");
+};

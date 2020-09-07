@@ -5,7 +5,8 @@ const blogController = require("../controllers/blogController");
 
 const { asyncErrorHandler } = require("../middleware/index");
 
-/* GET home page. */
 router.get("/", asyncErrorHandler(blogController.getBlogs));
+
+router.route("/create").get(blogController.getNewBlog);
 
 module.exports = router;

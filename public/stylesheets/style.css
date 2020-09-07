@@ -1,7 +1,5 @@
 body {
-  overflow-x: hidden !important;
-  padding-top: 6em;
-  padding-bottom: 6em; }
+  overflow-x: hidden !important; }
 
 .login-img {
   max-height: 100vh;

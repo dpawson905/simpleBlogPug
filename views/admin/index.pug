@@ -1,0 +1,47 @@
+extends ../layout
+
+block content
+  .container.my-5
+    .row
+      .col-12.mt-5
+        h1.text-center Admin Page
+      .col-xl-4.my-auto
+        div.card.shadow.p-2
+          canvas#userChart.card-img-top
+      .col-xl-8.my-auto
+        table.table
+          thead
+            tr.text-center
+              th(scope="col") _id
+              th(scope="col") Role
+              th(scope="col") Username
+              th(scope="col") Action
+          tbody
+            tr
+              each user in users
+                th(scope="row")= user.id
+                if user.roles.admin
+                  th Admin
+                else if user.roles.manager
+                  th Manager
+                else
+                  th User
+                th= user.username
+                th
+                  button.btn.btn-primary.mr-1 Change Role
+                  button.btn.btn-warning.ml-1 Ban User
+  
+  script.
+    var ctx = document.getElementById("userChart").getContext('2d');
+    var userChart = new Chart(ctx, {
+      type: "doughnut",
+      data: {
+        datasets: [{
+          data: [#{users.length}, 25],
+          backgroundColor: [`rgba(100, 100 , 150, 0.6)`, `rgba(124, 60 , 80, 0.6)`]
+        }],
+        labels: ['Users','Blogs'],
+        
+      },
+    });
+  include ../partials/_footer

@@ -19,6 +19,7 @@ const csrf = require("csurf");
 
 const User = require("./models/userModel");
 
+const adminRouter = require("./routes/adminRouter");
 const authRouter = require("./routes/authRouter");
 const indexRouter = require("./routes/indexRouter");
 const usersRouter = require("./routes/userRouter");
@@ -146,6 +147,7 @@ app.use(async (req, res, next) => {
 });
 
 app.use("/", indexRouter);
+app.use("/admin", adminRouter);
 app.use("/auth", authRouter);
 app.use("/users", usersRouter);
 

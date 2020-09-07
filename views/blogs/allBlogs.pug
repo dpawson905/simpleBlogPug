@@ -1,0 +1,16 @@
+extends ../layout
+
+block content
+  header.masthead 
+    .masthead-text
+      h1 Your Blogs
+  .container
+    .row
+      if !blogs.length
+        .col-12.my-5
+          h1.text-center No blogs yet
+      else
+        each blog in blogs
+          .col-xl-8.col-lg-10.col-12.mx-auto
+            p= blog.title  
+  include ../partials/_footer

@@ -21,6 +21,7 @@ const User = require("./models/userModel");
 
 const adminRouter = require("./routes/adminRouter");
 const authRouter = require("./routes/authRouter");
+const blogRouter = require("./routes/blogRouter");
 const indexRouter = require("./routes/indexRouter");
 const usersRouter = require("./routes/userRouter");
 
@@ -149,6 +150,7 @@ app.use(async (req, res, next) => {
 app.use("/", indexRouter);
 app.use("/admin", adminRouter);
 app.use("/auth", authRouter);
+app.use("/blogs", blogRouter);
 app.use("/users", usersRouter);
 
 app.all("*", (req, res, next) => {

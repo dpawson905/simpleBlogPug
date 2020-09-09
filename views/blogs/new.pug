@@ -46,4 +46,21 @@ block content
   script.
     $('#publishDate').datepicker();
 
+  script.
+    var simplemde = new SimpleMDE({
+      autoDownloadFontAwesome: true,
+      element: document.getElementById("markdownArea"),
+      showIcons: ["code", "heading-2", "heading-3"],
+      placeholder: 'Begin your blog here!',
+      renderingConfig: {
+        singleLineBreaks: true,
+        codeSyntaxHighlighting: true
+      },
+      shortcuts: {
+        "toggleBlockquote": "Ctrl-Alt--"
+      },
+      hideIcons: ['quote']
+    });
+   
+
   include ../partials/_footer

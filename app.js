@@ -57,7 +57,11 @@ const styleSrcUrls = [
   "https://unpkg.com/",
   "https://code.jquery.com",
 ];
-const connectSrcUrls = ["https://*.stripe.com/", "https://js.stripe.com/"];
+const connectSrcUrls = [
+  "https://*.stripe.com/",
+  "https://js.stripe.com/",
+  "https://cdn.jsdelivr.net/",
+];
 const frameSrcUrls = ["https://*.stripe.com", "https://js.stripe.com/"];
 const fontSrcUrls = [
   "https://fonts.gstatic.com/",
@@ -65,6 +69,7 @@ const fontSrcUrls = [
   "https://*.cloudflare.com",
   "https://*.dribbble.com",
   "https://unpkg.com/",
+  "https://*.bootstrapcdn.com",
 ];
 app.use(
   helmet.contentSecurityPolicy({

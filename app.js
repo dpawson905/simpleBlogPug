@@ -16,6 +16,7 @@ const passport = require("passport");
 const mongoose = require("mongoose");
 const MongoDBStore = require("connect-mongo")(session);
 const csrf = require("csurf");
+const expressSanitizer = require("express-sanitizer");
 
 const User = require("./models/userModel");
 
@@ -101,6 +102,7 @@ if (process.env.NODE_ENV.trim() === "development") {
 app.use(methodOverride("_method"));
 app.use(express.json({ limit: "10kb" }));
 app.use(express.urlencoded({ extended: true, limit: "10kb" }));
+app.use(expressSanitizer());
 app.use(cookieParser());
 app.use(mongoSanitize());
 app.use(xss());

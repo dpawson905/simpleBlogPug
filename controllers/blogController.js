@@ -43,3 +43,42 @@ exports.getBlog = async (req, res, next) => {
 exports.getNewBlog = (req, res, next) => {
   res.render("blogs/new");
 };
+
+exports.postBlog = async (req, res, next) => {
+  try {
+    req.body.title = req.sanitize(req.body.title);
+    let tags = req.body.tags;
+    req.body.tags = tags.split(",").map((tag) => tag.trim());
+    req.body.author = req.user.id;
+    if (req.file) {
+      const { secure_url, public_id } = req.file;
+      req.body.image = {
+        secure_url,
+        public_id,
+      };
+    }
+    if (!req.body.publishDate) req.body.publishDate = Date.now();
+    if (req.body.private) req.body.private = true;
+    req.body.content = entities.encode(req.body.content);
+    req.body.slug = await slug(
+      moment(Date.now()).format("DD-MM-YYYY") + "-" + req.body.title
+    );
+    if (req.body.featured) {
+      const featureCheck = await Blog.findOne({ featured: true });
+      if (featureCheck) {
+        featureCheck.featured = false;
+        await featureCheck.save();
+      }
+      req.body.featured = true;
+    }
+    console.log(req.body);
+    await Blog.create(req.body);
+    req.flash("success", "Blog created Successfully");
+    res.redirect("/blogs");
+  } catch (err) {
+    console.log(err);
+    await deleteProfileImage(req);
+    req.flash("error", err.message);
+    return res.redirect("/blogs");
+  }
+};

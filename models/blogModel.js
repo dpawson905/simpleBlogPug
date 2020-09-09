@@ -35,6 +35,7 @@ const BlogSchema = new Schema(
     slug: {
       type: String,
       trim: true,
+      unique: [true, "slugs must be unique"],
     },
     publishDate: {
       type: Date,

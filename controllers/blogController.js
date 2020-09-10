@@ -71,7 +71,6 @@ exports.postBlog = async (req, res, next) => {
       }
       req.body.featured = true;
     }
-    console.log(req.body);
     await Blog.create(req.body);
     req.flash("success", "Blog created Successfully");
     res.redirect("/blogs");

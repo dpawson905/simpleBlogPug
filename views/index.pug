@@ -9,11 +9,21 @@ block content
         a.btn.btn-outline-primary.shadow.mx-auto(href="#blogs") View Blogs
   .container.my-5#blogs
     .row
-      .col-12
+      .col-12.my-2
         if blogs.length
-          h1.text-center My Blogs
+          h1.text-center Five newest blogs
           each blog in blogs
-            h1 Blog
+            .card.my-3
+              .row.no-gutters
+                .col-md-4
+                  img.img-fluid(src=`${blog.image.secure_url}`, alt="Blog image")
+                .col-md-8
+                  .card-body
+                    h5.card-title= blog.title
+                    p.card-text= blog.content
+                    p.card-text
+                      small.text-muted= `Published ${blog.createdAt.toDateString()}`
+            hr.type_10
             
         else
           if isAuthenticated
